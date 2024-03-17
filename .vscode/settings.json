@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "aws-cs308.c5gk4os06v5f.eu-north-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "CS308_TEAM",
+            "username": "admin",
+            "database": "CS308_MAIN_SQL_DATABASE"
+        }
+    ]
+}
