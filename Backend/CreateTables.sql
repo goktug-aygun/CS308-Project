@@ -110,5 +110,5 @@ CREATE TABLE FlightCrew(
     crew_id     VARCHAR(7),
     FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (flight_id,crew_id)
+    PRIMARY KEY (flight_id,pilot_id,crew_id)
 );
