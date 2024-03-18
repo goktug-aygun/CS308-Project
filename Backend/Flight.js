@@ -25,3 +25,4 @@ class Flight{
         console.log(`Shared Company ID: ${this.sharedCompanyID}`);
     }
 }
+module.exports = Flight;
