@@ -1,4 +1,10 @@
+require('dotenv').config(); // Load environment variables from .env file
+
+const mysql = require('mysql');
 const { cityAirports, countryCities } = require('./fakerLocationData.js');
+
+// Load environment variables from .env file
+const DB_PASSWORD = process.env.DB_PASSWORD;
 
 class FlightLocation {
     constructor(country, city, airport, airportCode) {
