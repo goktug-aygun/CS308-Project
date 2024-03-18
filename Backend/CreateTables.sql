@@ -64,8 +64,8 @@ CREATE TABLE Flights(
     flight_id                  VARCHAR(6) NOT NULL,
     destination                VARCHAR(3) NOT NULL,
     source                     VARCHAR(3) NOT NULL,
-    duration                   INT        NOT NULL,
-    distance                   INT        NOT NULL,
+    duration                   DOUBLE     NOT NULL,
+    distance                   DOUBLE     NOT NULL,
     date_time                  TIMESTAMP  NOT NULL,
     plane_id                   VARCHAR(6) NOT NULL,
     shared_flight_company_code VARCHAR(3), #null or company_code
