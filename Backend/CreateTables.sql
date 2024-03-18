@@ -61,14 +61,15 @@ CREATE TABLE Planes(
 );
 
 CREATE TABLE Flights(
-    flight_id             VARCHAR(6) NOT NULL,
-    destination           VARCHAR(3) NOT NULL,
-    source                VARCHAR(3) NOT NULL,
-    duration              INT        NOT NULL,
-    distance              INT        NOT NULL,
-    date_time             TIMESTAMP NOT NULL,
-    plane_id              VARCHAR(6) NOT NULL,
-    shared_flight_company VARCHAR(3), #null or company_code
+    flight_id                  VARCHAR(6) NOT NULL,
+    destination                VARCHAR(3) NOT NULL,
+    source                     VARCHAR(3) NOT NULL,
+    duration                   DOUBLE     NOT NULL,
+    distance                   DOUBLE     NOT NULL,
+    date_time                  TIMESTAMP  NOT NULL,
+    plane_id                   VARCHAR(6) NOT NULL,
+    shared_flight_company_code VARCHAR(3), #null or company_code
+    shared_flight_company_name VARCHAR(50), #null or company name
     FOREIGN KEY (destination) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (source) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (plane_id) REFERENCES Planes(plane_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -109,5 +110,5 @@ CREATE TABLE FlightCrew(
     crew_id     VARCHAR(7),
     FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (flight_id,crew_id)
+    PRIMARY KEY (flight_id,pilot_id,crew_id)
 );
