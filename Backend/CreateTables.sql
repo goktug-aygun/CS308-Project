@@ -16,13 +16,17 @@ CREATE TABLE Pilots(
     PRIMARY KEY (pilot_id)
 );
 
-CREATE TABLE KnownLanguages(
+CREATE TABLE KnownLanguages (
+    language VARCHAR(20) NOT NULL ,
+    crew_id VARCHAR(7),
     pilot_id VARCHAR(7),
-    crew_id  VARCHAR(7),
-    language VARCHAR(20) NOT NULL,
-    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (pilot_id, crew_id,language)
+    CONSTRAINT chk_crew_or_pilot
+        CHECK (
+            (crew_id IS NOT NULL AND pilot_id IS NULL) OR
+            (crew_id IS NULL AND pilot_id IS NOT NULL)
+        ),
+    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id),
+    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id)
 );
 
 CREATE TABLE CrewMembers(
