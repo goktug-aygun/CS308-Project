@@ -1,94 +1,60 @@
+function getRandomInt(min, max) {
+    // Returns a random integer
+    // min is included, max is not, [min, max)
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 function generateID(type)
 {
-    if (type == "crew")
+    if (type == "crew") // Length 7
     {
-        var ret = "";
-        ret += Math.floor(Math.random() * (99999 - 10000) + 10000).toString()
+        var ret = "C-";
+        ret += getRandomInt(10000, 100000).toString()
 
-        for(var i = 0; i < 3; i++)
-        {
-            ret += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65))
-        }
         return ret;
     }
-    else if (type == "passenger")
+    else if (type == "pilot") // Length 7
     {
-        var ret = "";
+        var ret = "P-";
+        ret += getRandomInt(10000, 100000).toString()
+
+        return ret;
+    }
+    else if (type == "passenger") // Length 7
+    {
+        var ret = "T-";
         
-
-        for(var i = 0; i < 3; i++)
-        {
-            ret += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65))
-        }
-        ret += Math.floor(Math.random() * (999 - 100) + 100).toString()
-        for(var i = 0; i < 2; i++)
-        {
-            ret += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65))
-        }
+        ret += getRandomInt(10000, 100000).toString()
+        
         return ret;
     }
-    else if (type == "airport")
+    else if (type == "flight") // Length 6
     {
-        var ret = "";
-        for(var i = 0; i < 3; i++)
-        {
-            ret += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65));
-        }
-        return ret;
-    }
-    else if (type == "flight")
-    {
-        var ret = "";
+        var ret = "SU";
 
-        for(var i = 0; i < 2; i++)
-        {
-            ret += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65))
-        }
-
-        ret += Math.floor(Math.random() * (9999 - 1000) + 1000).toString()
+        ret += getRandomInt(1000,10000).toString()
 
         return ret;
     }
-    else if(type == "plane")
+    else if(type == "plane") // Length 7
     {
-        var ret = "SK";
+        var ret = "SK-";
 
-        ret += Math.floor(Math.random() * (9999 - 1000) + 1000).toString()
+        ret += getRandomInt(1000, 10000).toString()
 
         return ret;
     }
 }
 
-module.exports = {generateID};
 
-// Below are blueprints for SQL table creation
 
-// CREATE TABLE pilots
-// {
-//     id VARCHAR(8) NOT NULL,
-//     name VARCHAR(8) NOT NULL,
-//     age VARCHAR(8) NOT NULL,
-//     gender Boolean NOT NULL,
-//     nationality VARCHAR(20) NOT NULL,
-//     // known languages will be given in another table
-//     sen_level VARCHAR(8) NOT NULL,
-//     veh_rest VARCHAR(20) NOT NULL,
-//     max_range integer NOT NULL
-//     PRIMARY KEY (id)
-// }
+function getSeatNumber(max) // Returns a random seat number
+{
+    letter = ["A", "B", "C", "D", "E", "F"].at(getRandomInt(0,6));
+    num = getRandomInt(1,max).toString()
+    num = (num.length == 1) ? "0" + num : num
 
-// CREATE TABLE pilotLanguages
-// {
-//     id VARCHAR(8) NOT NULL,
-//     language VARCHAR(20) NOTNULL
-//     FOREIGN KEY id REFERENCES pilots(id)
-//     PRIMARY KEY (id, language)
-// }
+    return `${num}-${letter}`
+}
 
-// CREATE TABLE crewLanguages
-// {
-//     id VARCHAR(8) NOT NULL,
-//     language VARCHAR(20) NOTNULL
-//     FOREIGN KEY id REFERENCES crewMembers(id)
-//     PRIMARY KEY (id, language)
-// }
+module.exports = {generateID, getRandomInt, getSeatNumber};

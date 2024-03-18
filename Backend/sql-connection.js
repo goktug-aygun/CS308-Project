@@ -8,5 +8,10 @@ const connection = mysql.createConnection({
   database: 'CS308_MAIN_SQL_DATABASE'
 });
 
-connection.connect();
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err.stack);
+    return;
+  }
+});
 module.exports = connection;
