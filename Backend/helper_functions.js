@@ -1,3 +1,4 @@
+const connection = require('./sql-connection');
 function getRandomInt(min, max) {
     // Returns a random integer
     // min is included, max is not, [min, max)
@@ -46,8 +47,6 @@ function generateID(type)
     }
 }
 
-
-
 function getSeatNumber(max) // Returns a random seat number
 {
     letter = ["A", "B", "C", "D", "E", "F"].at(getRandomInt(0,6));
@@ -56,5 +55,59 @@ function getSeatNumber(max) // Returns a random seat number
 
     return `${num}-${letter}`
 }
+//flight generation helper functions// 
 
-module.exports = {generateID, getRandomInt, getSeatNumber};
+// Function to get a random source location
+function getRandomSourceLocation(callback) {
+    connection.query('SELECT airport_code FROM Locations ORDER BY RAND() LIMIT 1', (err, results) => {
+    if (err) {
+        callback(err);
+        return;
+    }
+    callback(null, results[0].airport_code);
+    });
+}
+// Function to get a random destination location
+function getRandomDestinationLocation(sourceLocation, callback) {
+    connection.query(`SELECT airport_code FROM Locations WHERE airport_code != ? ORDER BY RAND() LIMIT 1`, [sourceLocation], (err, results) => {
+        if (err) {
+          callback(err);
+          return;
+        }
+        callback(null, results[0].airport_code);
+    });
+}
+
+//Function to get random shared flight company name
+function getRandomFlightCompanyName() {
+    const airlines = [
+        ["AA", "American Airlines"],
+        ["UA", "United Airlines"],
+        ["DL", "Delta Air Lines"],
+        ["BA", "British Airways"],
+        ["AF", "Air France"],
+        ["LH", "Lufthansa"],
+        ["EK", "Emirates Airlines"],
+        ["PC", "Pegasus Airlines"]
+        ["QR", "Qatar Airways"],
+        ["TK", "Turkish Airlines"],
+        ["SQ", "Singapore Airlines"],
+        ["CX", "Cathay Pacific"],
+        ["QF", "Qantas Airways"],
+        ["EY", "Etihad Airways"],
+        ["JL", "Japan Airlines"],
+        ["NH", "All Nippon Airways"],
+        ["AI", "Air India"],
+        ["AS", "Alaska Airlines"],
+        ["KL", "KLM Royal Dutch Airlines"],
+    ];
+        
+    // Simulate 10% chance of getting null
+    if (Math.random() > 0.1) {return [null,null];}
+  
+    // Return a random company name from the list
+    const randomIndex = Math.floor(Math.random() * airlines.length);
+    return airlines[randomIndex];
+}
+  
+module.exports = {generateID, getRandomInt, getSeatNumber,getRandomSourceLocation,getRandomDestinationLocation,getRandomFlightCompanyName};
