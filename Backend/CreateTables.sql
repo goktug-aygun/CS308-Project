@@ -43,6 +43,8 @@ CREATE TABLE Locations(
     city_name    VARCHAR(20) NOT NULL,
     airport_name VARCHAR(50) NOT NULL,
     airport_code VARCHAR(3)  NOT NULL,
+    latitude     DOUBLE NOT NULL,
+    longitude    DOUBLE NOT NULL,
     PRIMARY KEY (airport_code)
 );
 
@@ -63,7 +65,7 @@ CREATE TABLE Flights(
     duration              DOUBLE     NOT NULL,
     distance              DOUBLE     NOT NULL,
     date_time             TIMESTAMP NOT NULL,
-    plane_id              VARCHAR(6) NOT NULL,
+    plane_id              VARCHAR(7) NOT NULL,
     shared_flight_company VARCHAR(2), #null or company_code
     shared_flight_company_name VARCHAR(50), #null or company name
     FOREIGN KEY (destination) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,

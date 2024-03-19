@@ -67,6 +67,7 @@ function getRandomSourceLocation(callback) {
     callback(null, results[0].airport_code);
     });
 }
+
 // Function to get a random destination location
 function getRandomDestinationLocation(sourceLocation, callback) {
     connection.query(`SELECT airport_code FROM Locations WHERE airport_code != ? ORDER BY RAND() LIMIT 1`, [sourceLocation], (err, results) => {
@@ -102,12 +103,46 @@ function getRandomFlightCompanyName() {
         ["KL", "KLM Royal Dutch Airlines"],
     ];
         
-    // Simulate 10% chance of getting null
-    if (Math.random() > 0.1) {return [null,null];}
+    // 15% chance
+    if (Math.random() > 0.15) {return [null,null];}
   
     // Return a random company name from the list
     const randomIndex = Math.floor(Math.random() * airlines.length);
     return airlines[randomIndex];
 }
-  
-module.exports = {generateID, getRandomInt, getSeatNumber,getRandomSourceLocation,getRandomDestinationLocation,getRandomFlightCompanyName};
+
+//Function to get random shared flight company name
+function calculateDistance(coordinates) {
+    lat1=coordinates[0], lon1=coordinates[1], lat2=coordinates[2], lon2=coordinates[3];
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180;  // Convert degrees to radians
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return distance;
+}
+
+//Function to calculate duration based on distance between locations
+function calculateDuration(distance) {
+    let duration = 0
+    if (distance<500){
+        duration = distance/450;
+    }
+    else if (distance<1000){
+        duration=distance/500;
+    }
+    else if (distance<5000){
+        duration=distance/600;
+    }
+    else{
+        duration=distance/650;
+    }
+
+    return duration*(0.9 + Math.random() * 0.2);
+}
+
+module.exports = {generateID, getRandomInt, getSeatNumber,getRandomSourceLocation,getRandomDestinationLocation,getRandomFlightCompanyName,calculateDistance,calculateDuration};
