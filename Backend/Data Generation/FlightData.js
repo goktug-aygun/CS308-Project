@@ -4,10 +4,12 @@ const { generateID, getRandomInt, getSeatNumber,
   calculateDistance,calculateDuration} = require('../helper_functions');
 const connection = require('../Database Connection/sql-connection');
 
+var queryUpperLimit = 1;
+
 //flight_id generation
 const uniqueFlightIDs = new Set();
 // generating flight IDs
-while (uniqueFlightIDs.size < 1) {
+while (uniqueFlightIDs.size < queryUpperLimit) {
     const flightID = generateID("flight");
     uniqueFlightIDs.add(flightID); // This will automatically handle duplicate prevention
 }
@@ -18,7 +20,7 @@ const flightIDs = Array.from(uniqueFlightIDs);
 // get location and destination randomly
 const flights = {}; // Dictionary to store the flights
 // Perform the queries sequentially
-const totalQueries = 1;
+const totalQueries = queryUpperLimit;
 let completedQueries = 0;
 
 function generateFlights() {
