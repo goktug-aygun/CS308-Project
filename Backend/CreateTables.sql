@@ -16,19 +16,6 @@ CREATE TABLE Pilots(
     PRIMARY KEY (pilot_id)
 );
 
-CREATE TABLE KnownLanguages (
-    language VARCHAR(20) NOT NULL ,
-    crew_id VARCHAR(7),
-    pilot_id VARCHAR(7),
-    CONSTRAINT chk_crew_or_pilot
-        CHECK (
-            (crew_id IS NOT NULL AND pilot_id IS NULL) OR
-            (crew_id IS NULL AND pilot_id IS NOT NULL)
-        ),
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id),
-    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id)
-);
-
 CREATE TABLE CrewMembers(
     crew_id     VARCHAR(7) NOT NULL,
     name        VARCHAR(20) NOT NULL,
@@ -42,16 +29,26 @@ CREATE TABLE CrewMembers(
     PRIMARY KEY (crew_id)
 );
 
+CREATE TABLE KnownLanguages (
+    language VARCHAR(20) NOT NULL ,
+    crew_id VARCHAR(7),
+    pilot_id VARCHAR(7),
+    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE Locations(
     country_name VARCHAR(20) NOT NULL,
     city_name    VARCHAR(20) NOT NULL,
     airport_name VARCHAR(50) NOT NULL,
     airport_code VARCHAR(3)  NOT NULL,
+    latitude     DOUBLE NOT NULL,
+    longitude    DOUBLE NOT NULL,
     PRIMARY KEY (airport_code)
 );
 
 CREATE TABLE Planes(
-    plane_id    VARCHAR(7) NOT NULL,
+    plane_id    VARCHAR(7) NOT NULL, #In the format SK-NNNN
     type        VARCHAR(20) NOT NULL,  #airbus a380
     level       VARCHAR(1) NOT NULL,  #a,b,c,d
     passengerCapacity INT NOT NULL,
@@ -61,14 +58,14 @@ CREATE TABLE Planes(
 );
 
 CREATE TABLE Flights(
-    flight_id                  VARCHAR(6) NOT NULL,
-    destination                VARCHAR(3) NOT NULL,
-    source                     VARCHAR(3) NOT NULL,
-    duration                   DOUBLE     NOT NULL,
-    distance                   DOUBLE     NOT NULL,
-    date_time                  TIMESTAMP  NOT NULL,
-    plane_id                   VARCHAR(6) NOT NULL,
-    shared_flight_company_code VARCHAR(3), #null or company_code
+    flight_id             VARCHAR(6) NOT NULL,
+    destination           VARCHAR(3) NOT NULL,
+    source                VARCHAR(3) NOT NULL,
+    duration              DOUBLE     NOT NULL,
+    distance              DOUBLE     NOT NULL,
+    date_time             TIMESTAMP NOT NULL,
+    plane_id              VARCHAR(7) NOT NULL,
+    shared_flight_company VARCHAR(2), #null or company_code
     shared_flight_company_name VARCHAR(50), #null or company name
     FOREIGN KEY (destination) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (source) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -111,4 +108,26 @@ CREATE TABLE FlightCrew(
     FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (flight_id,pilot_id,crew_id)
+);
+
+CREATE TABLE Recipes(
+    food_id         VARCHAR(6) NOT NULL,
+    dish_name       VARCHAR(75) NOT NULL,
+    is_vegetarian   BOOLEAN NOT NULL,
+    is_vegan        BOOLEAN NOT NULL,
+    is_alcohol      BOOLEAN NOT NULL,
+    is_drink        BOOLEAN NOT NULL,
+    is_halal        BOOLEAN NOT NULL,
+    is_dessert      BOOLEAN NOT NULL,
+    calorie         INT NOT NULL,
+    price           INT NOT NULL,
+    PRIMARY KEY (food_id)
+);
+
+CREATE TABLE ChefsFoods(
+    chef_id VARCHAR(7) NOT NULL,
+    food_id VARCHAR(6) NOT NULL,
+    FOREIGN KEY (chef_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (food_id) REFERENCES Recipes(food_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (chef_id,food_id)
 );
