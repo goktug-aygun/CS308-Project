@@ -106,8 +106,7 @@ CREATE TABLE FlightCrew(
     pilot_id    VARCHAR(7),
     crew_id     VARCHAR(7),
     FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (flight_id,pilot_id,crew_id)
+    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Recipes(
