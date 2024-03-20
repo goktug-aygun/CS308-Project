@@ -131,27 +131,3 @@ CREATE TABLE ChefsFoods(
     FOREIGN KEY (food_id) REFERENCES Recipes(food_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (chef_id,food_id)
 );
-
-
-INSERT INTO Locations (country_name, city_name, airport_name, airport_code, latitude, longitude)
-VALUES
-("United States", "New York City", "John F. Kennedy International Airport", "JFK", 40.6413, -73.7781),
-("Japan", "Tokyo", "Narita International Airport", "NRT", 35.7647, 140.3863),
-("Brazil", "Rio de Janeiro", "Galeão International Airport", "GIG", -22.8134, -43.2486),
-("Australia", "Sydney", "Kingsford Smith International Airport", "SYD", -33.9461, 151.1772),
-("England", "London", "Heathrow Airport", "LHR", 51.4700, -0.4543),
-("India", "Delhi", "Indira Gandhi International Airport", "DEL", 28.5562, 77.1000),
-("Italy", "Rome", "Leonardo da Vinci–Fiumicino Airport", "FCO", 41.8003, 12.2389),
-("Canada", "Toronto", "Toronto Pearson International Airport", "YYZ", 43.6777, -79.6248),
-("Germany", "Frankfurt", "Frankfurt Airport", "FRA", 50.0344, 8.5575),
-("South Korea", "Seoul", "Incheon International Airport", "ICN", 37.4602, 126.4407),
-("Spain", "Barcelona", "Barcelona-El Prat Airport", "BCN", 41.2971, 2.0785),
-("China", "Beijing", "Beijing Capital International Airport", "PEK", 40.0801, 116.5845),
-("Mexico", "Mexico City", "Mexico City International Airport", "MEX", 19.4363, -99.0720),
-("United Arab Emirates", "Dubai", "Dubai International Airport", "DXB", 25.2528, 55.3644),
-("Netherlands", "Amsterdam", "Amsterdam Airport Schiphol", "AMS", 52.3086, 4.7639),
-("Thailand", "Bangkok", "Suvarnabhumi Airport", "BKK", 13.6813, 100.7477),
-("Argentina", "Buenos Aires", "Ezeiza International Airport", "EZE", -34.8221, -58.5338),
-("Egypt", "Cairo", "Cairo International Airport", "CAI", 30.1111, 31.4139),
-("South Africa", "Cape Town", "Cape Town International Airport", "CPT", -33.9715, 18.6021),
-("Kenya", "Nairobi", "Jomo Kenyatta International Airport", "NBO", -1.3192, 36.9273);
