@@ -1,4 +1,4 @@
-const connection = require('./sql-connection');
+const connection = require('./Database Connection/sql-connection');
 function getRandomInt(min, max) {
     // Returns a random integer
     // min is included, max is not, [min, max)
@@ -89,7 +89,7 @@ function getRandomFlightCompanyName() {
         ["AF", "Air France"],
         ["LH", "Lufthansa"],
         ["EK", "Emirates Airlines"],
-        ["PC", "Pegasus Airlines"]
+        ["PC", "Pegasus Airlines"],
         ["QR", "Qatar Airways"],
         ["TK", "Turkish Airlines"],
         ["SQ", "Singapore Airlines"],
