@@ -27,10 +27,13 @@ class PilotClass {
 
 }
 
-class PilotLanguageClass {
-    constructor(pilotID, language) {
-        this.pilotID = pilotID;
-        this.language = language;
+class LanguageClass
+{
+    constructor (_pilotID, _crewID, _language)
+    {
+        this.pilotID = _pilotID;
+        this.crewID = _crewID;
+        this.language = _language;
     }
 }
 
@@ -57,7 +60,7 @@ const LanguageSchema = new mongoose.Schema({
 });
 
 const pilotTable = mongoose.model('Pilots', pilotSchema);
-const LanguageTable = mongoose.model('Languages', LanguageSchema);
+const languageTable = mongoose.model('Languages', LanguageSchema);
 
 async function insertPilot(pilotInstance) {
     pilotTable.create({
@@ -73,13 +76,13 @@ async function insertPilot(pilotInstance) {
     });
 }
 
-async function insertLanguage(pilotID_arg, crewID_arg, language_arg) {
+async function insertLanguage(instance) {
     LanguageTable.create({
-        pilotID: pilotID_arg,
-        crewID: crewID_arg,
-        language: language_arg
+        pilotID: instance.pilotID,
+        crewID: instance.crewID,
+        language: instance.language
     });
 }
 
 
-module.exports = { PilotClass, PilotLanguageClass, insertPilot, insertLanguage};
+module.exports = { PilotClass, LanguageClass, insertPilot, insertLanguage, pilotTable, languageTable};
