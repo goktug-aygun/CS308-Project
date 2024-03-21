@@ -1,28 +1,50 @@
-//class Location -->flightSource,flightDestination: country, city, airport name and airport code (in AAA format)
-//class Vehicle -->vehicleType  number of seats and seating plan
-//sharedInfo --> company name and code (in AAA format)
-//flightInfo --> date up to minutes,duration,distance, company array
-class Flight{
-    constructor(flightNumber,flightInfo,Source,Destination,vehicleType,sharedInfo)
+const mongoose = require('mongoose');
+class FlightClass{
+    constructor(flightNumber,destination,source,duration,distance,date_time,plane_id,shared_flight_company_id,shared_flight_company_name)
     {
-        this.flightNumber = flightNumber;
-        this.flightInfo = flightInfo;
-        this.Source = Source;
-        this.Destination = Destination;
-        this.vehicleType = vehicleType;
-        this.sharedInfo = sharedInfo;
-    }
-
-    displayInfo(){
-        console.log(`Flight Number: ${this.flightNumber}`);
-        console.log(`Source: ${this.Source.cityName}`);
-        console.log(`Destination: ${this.Destination.cityName}`);
-        console.log(`Duration: ${this.duration}`);
-        console.log(`Distance: ${this.distance}`);
-        console.log(`Date: ${this.date}`);
-        console.log(`Time: ${this.time}`);
-        console.log(`Vehicle Type: ${this.VehicleType.planeID}`);
-        console.log(`Shared Company ID: ${this.sharedCompanyID}`);
+        this.flightNumber=flightNumber;
+        this.destination=destination;
+        this.source=source;
+        this.duration=duration;
+        this.distance=distance;
+        this.date_time=date_time;
+        this.plane_id=plane_id;
+        this.shared_flight_company_id=shared_flight_company_id; 
+        this.shared_flight_company_name=shared_flight_company_name;
     }
 }
-module.exports = Flight;
+// MongoDB connection
+const uri = "mongodb+srv://cs308:cs308Test@test-db.1sxjsvf.mongodb.net/?retryWrites=true&w=majority&appName=test-db";
+mongoose.connect(uri);
+
+const flightSchema = new mongoose.Schema({
+    flightNumber: String,
+    destination: String,
+    source: String,
+    duration: Number,
+    distance: Number,
+    date_time: String,
+    plane_id: String,
+    shared_flight_company_id: String,
+    shared_flight_company_name: String
+}, {
+    versionKey: false
+});
+
+const flightTable = mongoose.model('Flights', flightSchema);
+
+async function insertFlight(flightInstance) {
+    flightTable.create({
+        flightNumber: flightInstance.flightNumber,
+        destination: flightInstance.destination,
+        source: flightInstance.source,
+        duration: flightInstance.duration,
+        distance: flightInstance.distance,
+        date_time: flightInstance.date_time,
+        plane_id: flightInstance.plane_id,
+        shared_flight_company_id: flightInstance.shared_flight_company_id,
+        shared_flight_company_name: flightInstance.shared_flight_company_name,
+    });
+}
+
+module.exports = {FlightClass,insertFlight,mongoose};
