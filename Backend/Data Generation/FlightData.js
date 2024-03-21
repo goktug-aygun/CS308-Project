@@ -4,7 +4,7 @@ const { generateID, getRandomInt, getSeatNumber,
 
 const {FlightClass,insertFlight,mongoose}=require('../Models/Flight');
 const connection = require('../Database Connection/sql-connection');
-var queryUpperLimit = 1;
+var queryUpperLimit = 100;
 
 //flight_id generation
 const uniqueFlightIDs = new Set();
@@ -116,7 +116,7 @@ function generateFlights() {
                                             console.error('Error closing database connection:', err.stack);
                                             return;
                                         }
-                                        // Optionally, you can close the MongoDB connection here too
+                                        // close the MongoDB connection
                                         mongoose.connection.close();
                                     });
                                 }
