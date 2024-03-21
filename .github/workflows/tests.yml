@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Set up Python
       - name: Set up Python
@@ -19,16 +19,75 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Install MySQL client library
-      - name: Install MySQL client library
+      - name: Install dependencies
         run: |
-          apt-get install -y mysql-client
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       # Run integration test
-      - name: Run Integration Test
+      - name: Pilot_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
         env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          pip install mysql-connector-python
-          python integration_test.py  # Replace with the name of your integration test file
+          pytest ../Backend_Unit_Tests/Pilot_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      
+      # Run integration test
+      - name: Known_Languages_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/KnownLanguages_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
+      # Run integration test
+      - name: Crew_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/Crew_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      # Run integration test
+      - name: Location_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/Location_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      # Run integration test
+      - name: Plane_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/Plane_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      # Run integration test
+      - name: Flight_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/Flight_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      
+        # Run integration test
+      - name: Seat_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/Seat_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+        # Run integration test
+      - name: FlightCrew_Integration
+        if: contains(github.event.head_commit.message, 'SQL_Merge')
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          pytest ../Backend_Unit_Tests/FlightCrew_Integration_Test.py --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          
+
+        # Run integration test for passenger
