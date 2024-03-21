@@ -50,7 +50,7 @@ CREATE TABLE Locations(
 CREATE TABLE Planes(
     plane_id    VARCHAR(7) NOT NULL, #In the format SK-NNNN
     type        VARCHAR(20) NOT NULL,  #airbus a380
-    level       VARCHAR(1) NOT NULL,  #a,b,c,d
+    level       INT NOT NULL,  #1,2,3,4
     passengerCapacity INT NOT NULL,
     crewCapacity INT NOT NULL,
     seatCapacity INT NOT NULL,
