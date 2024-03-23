@@ -9,6 +9,7 @@ const {getRandomInt}= require('../helper_functions');
 //In each flight there should be 1-4 senior attendants, 4-16 junior attendants and 0-2 chefs. (DONE??)
 //Attendant vehicle restriction: The types (multiple) of vehicles that the attendant can participate in. (DONE)
 //flighttime-+duration (DONE??)
+//check plane crew-capacity
 
 function assignCrewAndPilotsToFlights() {
     // Query to get all flights
@@ -23,6 +24,9 @@ function assignCrewAndPilotsToFlights() {
         if (error) throw error;
         // Iterate through flights
         results.forEach(flight => {
+            let i=1
+            console.log('Trying flight', i );
+            i++;
             const flight_id = flight.flight_id;
             const duration = flight.duration;
             const distance = flight.distance;

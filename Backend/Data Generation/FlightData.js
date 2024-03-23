@@ -4,7 +4,7 @@ const { generateID, getRandomInt, getSeatNumber,
 
 const {FlightClass,insertFlight,mongoose}=require('../Models/Flight');
 const connection = require('../Database Connection/sql-connection');
-var queryUpperLimit = 100;
+var queryUpperLimit = 5;
 
 //flight_id generation
 const uniqueFlightIDs = new Set();
@@ -117,7 +117,7 @@ function generateFlights() {
                                             return;
                                         }
                                         // close the MongoDB connection
-                                        mongoose.connection.close();
+                                        //mongoose.connection.close();
                                     });
                                 }
                             });
