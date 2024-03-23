@@ -23,9 +23,8 @@ CREATE TABLE CrewMembers(
     gender      VARCHAR(1) NOT NULL,
     nationality VARCHAR(20) NOT NULL,
     #known languages will be given in table "CrewKnownLanguages"
-    att_type    VARCHAR(1) NOT NULL,  #s,j,c
+    att_type    VARCHAR(1) NOT NULL,  #S,J,C
     veh_rest    INT NOT NULL,  #1,2,3,4
-    max_range   INT NOT NULL,
     PRIMARY KEY (crew_id)
 );
 
@@ -106,7 +105,8 @@ CREATE TABLE FlightCrew(
     pilot_id    VARCHAR(7),
     crew_id     VARCHAR(7),
     FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (flight_id,pilot_id,crew_id)
 );
 
 CREATE TABLE Recipes(
