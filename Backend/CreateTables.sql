@@ -80,7 +80,6 @@ CREATE TABLE Passengers(
     gender          VARCHAR(1)  NOT NULL,
     nationality     VARCHAR(20) NOT NULL,
     seat_type       VARCHAR (1) NOT NULL, #B,E
-    seat_number     VARCHAR (3) NOT NULL, #01A
     parentID1       VARCHAR (8),
     parentID2       VARCHAR(8),
     email           VARCHAR(100) NOT NULL,
