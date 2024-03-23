@@ -75,7 +75,6 @@ CREATE TABLE Flights(
 
 CREATE TABLE Passengers(
     passenger_id    VARCHAR(7)  NOT NULL,
-    flight_id       VARCHAR(6)  NOT NULL,
     name            VARCHAR(20) NOT NULL,
     age             INT         NOT NULL,
     gender          VARCHAR(1)  NOT NULL,
@@ -87,7 +86,6 @@ CREATE TABLE Passengers(
     budget          INT NOT NULL,
     FOREIGN KEY (parentID1) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (parentID2) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (passenger_id)
 );
 
