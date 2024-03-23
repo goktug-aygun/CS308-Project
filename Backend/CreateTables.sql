@@ -25,6 +25,7 @@ CREATE TABLE CrewMembers(
     #known languages will be given in table "CrewKnownLanguages"
     att_type    VARCHAR(1) NOT NULL,  #S,J,C
     veh_rest    INT NOT NULL,  #1,2,3,4
+    email       VARCHAR(100) NOT NULL;
     PRIMARY KEY (crew_id)
 );
 
