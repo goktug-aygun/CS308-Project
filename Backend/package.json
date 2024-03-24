@@ -1,7 +1,7 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "faker": "^5.5.3",
-    "mongoose": "^8.2.2",
+    "mongoose": "^8.2.3",
     "mysql": "^2.18.1"
   }
 }

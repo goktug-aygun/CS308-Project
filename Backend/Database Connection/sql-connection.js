@@ -15,10 +15,6 @@ MySQL_connection.connect((err) => {
     console.error('Error connecting to database:', err.stack);
     return;
   }
-  else
-  {
-    console.log("Connected to MySQL database.");
-  }
 });
 
 
@@ -28,7 +24,7 @@ const uri = "mongodb+srv://cs308:cs308Test@test-db.1sxjsvf.mongodb.net/?retryWri
 
 const Mongoose_Connection = mongoose.connect(uri)
     .then(() => {
-        console.log('Connected to MongoDB Database\n');
+        console.log('Connected to MongoDB Database');
     })
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error);
@@ -36,4 +32,3 @@ const Mongoose_Connection = mongoose.connect(uri)
 
 
 module.exports = {MySQL_connection, Mongoose_Connection, mongoose};
-// module.exports = {MySQL_connection};
