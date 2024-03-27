@@ -70,18 +70,6 @@ CREATE TABLE Flights(
     FOREIGN KEY (destination) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (source) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (plane_id) REFERENCES Planes(plane_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    flight_id                  VARCHAR(6) NOT NULL,
-    destination                VARCHAR(3) NOT NULL,
-    source                     VARCHAR(3) NOT NULL,
-    duration                   DOUBLE     NOT NULL,
-    distance                   DOUBLE     NOT NULL,
-    date_time                  TIMESTAMP  NOT NULL,
-    plane_id                   VARCHAR(6) NOT NULL,
-    shared_flight_company_code VARCHAR(3), #null or company_code
-    shared_flight_company_name VARCHAR(50), #null or company name
-    FOREIGN KEY (destination) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (source) REFERENCES Locations(airport_code) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (plane_id) REFERENCES Planes(plane_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (flight_id)
 );
 
@@ -100,8 +88,6 @@ CREATE TABLE Passengers(
     budget          INT NOT NULL,
     FOREIGN KEY (parentID1) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (parentID2) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (parentID1) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (parentID2) REFERENCES Passengers (passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (passenger_id)
 );
@@ -111,8 +97,6 @@ CREATE TABLE Seats(
     passenger_id VARCHAR(7) NOT NULL,
     passenger_id VARCHAR(7) NOT NULL,
     seat_number  VARCHAR(3) NOT NULL,
-    FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (passenger_id) REFERENCES Passengers(passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (passenger_id) REFERENCES Passengers(passenger_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (flight_id, passenger_id, seat_number)
