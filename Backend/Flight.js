@@ -1,6 +1,5 @@
 //class Location -->flightSource,flightDestination: country, city, airport name and airport code (in AAA format)
 //class Vehicle -->vehicleType  number of seats and seating plan
-//sharedInfo --> company name and code (in AAA format)
 //flightInfo --> date up to minutes,duration,distance, company array
 class Flight{
     constructor(flightNumber,flightInfo,Source,Destination,vehicleType,sharedInfo)
