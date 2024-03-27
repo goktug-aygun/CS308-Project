@@ -104,3 +104,20 @@ CREATE TABLE FlightCrew(
     FOREIGN KEY (pilot_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (flight_id, personel_id)
 );
+
+CREATE TABLE Menus(
+    menu_id         INT NOT NULL AUTO_INCREMENT,
+    menu_name       VARCHAR(150) NOT NULL,
+    is_vegan        BOOLEAN NOT NULL,
+    is_halal        BOOLEAN NOT NULL,
+    price           INT NOT NULL,
+    PRIMARY KEY (menu_id)
+);
+
+CREATE TABLE ChefsMenus(
+    chef_id VARCHAR(7) NOT NULL,
+    menu_id INT NOT NULL,
+    FOREIGN KEY (chef_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (chef_id,menu_id)
+);
