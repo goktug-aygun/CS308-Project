@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+// MongoDB connection
+const uri = "mongodb+srv://cs308:cs308Test@flightrosterdb.sm2ovjq.mongodb.net/cs308";
+mongoose.connect(uri);
+
 class FlightClass{
     constructor(flightNumber,destination,source,duration,distance,date_time,plane_id,shared_flight_company_id,shared_flight_company_name)
     {
@@ -13,9 +17,6 @@ class FlightClass{
         this.shared_flight_company_name=shared_flight_company_name;
     }
 }
-// MongoDB connection
-const uri = "mongodb+srv://cs308:cs308Test@test-db.1sxjsvf.mongodb.net/?retryWrites=true&w=majority&appName=test-db";
-mongoose.connect(uri);
 
 const flightSchema = new mongoose.Schema({
     flightNumber: String,
@@ -47,4 +48,22 @@ async function insertFlight(flightInstance) {
     });
 }
 
-module.exports = {FlightClass,insertFlight,mongoose};
+const flightAttendantsSchema = new mongoose.Schema({
+    flightNumber: String,
+    crew: [String],
+    pilots: [String]
+}, {
+    versionKey: false
+});
+
+const flightAttendantsTable = mongoose.model('FlightCrew', flightAttendantsSchema);
+
+async function assignToFlight(flight_id,crewArr,pilotsArr) {
+    flightAttendantsTable.create({
+        flightNumber: flight_id,
+        crew: crewArr,
+        pilots: pilotsArr,
+    });
+}
+
+module.exports = {FlightClass,insertFlight,mongoose,assignToFlight};

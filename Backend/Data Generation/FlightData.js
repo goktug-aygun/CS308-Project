@@ -2,9 +2,9 @@ const { generateID, getRandomInt, getSeatNumber,
     getRandomSourceLocation, getRandomDestinationLocation, getRandomFlightCompanyName,
     calculateDistance, calculateDuration } = require('../helper_functions');
 
-const {FlightClass,insertFlight,mongoose}=require('../Models/Flight');
+const {FlightClass,insertFlight}=require('../Models/Flight');
 const connection = require('../Database Connection/sql-connection');
-var queryUpperLimit = 5;
+var queryUpperLimit = 1000;
 
 //flight_id generation
 const uniqueFlightIDs = new Set();
@@ -128,5 +128,6 @@ function generateFlights() {
             });
         });
     }
+    //connection.end();
 }
 generateFlights();

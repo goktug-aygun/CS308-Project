@@ -138,11 +138,14 @@ function calculateDuration(distance) {
     else if (distance<5000){
         duration=distance/600;
     }
-    else{
+    else if (distance<10000){
         duration=distance/650;
     }
+    else {
+        duration=distance/800;
+    }
 
-    return duration*(0.9 + Math.random() * 0.2);
+    return duration*(0.9 + Math.random() * 0.1);
 }
 
 module.exports = {generateID, getRandomInt, getSeatNumber,getRandomSourceLocation,getRandomDestinationLocation,getRandomFlightCompanyName,calculateDistance,calculateDuration};
