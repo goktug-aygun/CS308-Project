@@ -80,22 +80,26 @@ function generatePilotData(id) {
     const sen_level = ["S", "J", "T"].at(getRandomInt(0, 3));
     const veh_rest = [1, 2, 3, 4].at(getRandomInt(0, 4));
     const nationality = nationalities.at(getRandomInt(0, nationalities.length));
-    const maxRange = (sen_level == "S") ? (getRandomInt(20, 31) * 1000) : (sen_level == "J") ? (getRandomInt(15, 21) * 1000) : (getRandomInt(5, 15) * 1000); 
+    const maxRange = (sen_level == "S") ? (getRandomInt(20, 31) * 1000) : (sen_level == "J") ? (getRandomInt(15, 21) * 1000) : (getRandomInt(5, 15) * 1000);
     const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@sabanciuniv.edu`;
 
-    const parametersDict = {
-        pilot_id: id,
+    const personelDict = {
+        personel_id: id,
         name: name,
         age: age,
         gender: gender,
         nationality: nationality,
-        sen_level: sen_level,
         veh_rest: veh_rest,
-        max_range: maxRange,
         email: email,
     }
 
-    return parametersDict;
+    const pilotDict = {
+        personel_id: id,
+        sen_level: sen_level,
+        max_range: maxRange,
+    }
+
+    return { personelDict, pilotDict };
 }
 
 
@@ -105,7 +109,6 @@ function generateLanguageData(nationality) {
     const english_main_bool = english_main.includes(nationality);
     const languagesSpoken = (english_main_bool) ? ["English"] : ["English", nationality];
     const randomCount = (english_main_bool) ? getRandomInt(1, 4) : getRandomInt(0, 3);
-
 
     for (let j = 0; j < randomCount; j++) {
         do {
@@ -120,4 +123,4 @@ function generateLanguageData(nationality) {
 
 
 
-module.exports = { generateID, getRandomInt, getSeatNumber, generatePilotData, generateLanguageData};
+module.exports = { generateID, getRandomInt, getSeatNumber, generatePilotData, generateLanguageData };

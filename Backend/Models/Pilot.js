@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 class PilotClass {
 
-    constructor(id, name, age, gender, sen_level, veh_rest, nationality, maxRange, email) {
+    constructor(id, name, age, gender, sen_level, veh_rest, nationality, maxRange, email, knownLanguages, flights) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -12,6 +12,8 @@ class PilotClass {
         this.nationality = nationality;
         this.maxRange = maxRange;
         this.email = email;
+        this.knownLanguages = knownLanguages; // Array (will be used in Mongo)
+        this.flights = flights; // Array (will be used in Mongo)
     }
 
     displayPilotInfo() {
@@ -27,13 +29,6 @@ class PilotClass {
 
 }
 
-class LanguageClass {
-    constructor(_pilotID, _crewID, _language) {
-        this.pilotID = _pilotID;
-        this.crewID = _crewID;
-        this.language = _language;
-    }
-}
 
 const pilotSchema = new mongoose.Schema({
     pilotID: String,
@@ -44,21 +39,15 @@ const pilotSchema = new mongoose.Schema({
     sen_level: String,
     veh_rest: Number,
     maxRange: Number,
-    email: String
+    email: String,
+    knownLanguages : [String],
+    flights : [String]
 }, {
     versionKey: false
 });
 
-const LanguageSchema = new mongoose.Schema({
-    pilotID: String,
-    crewID: String,
-    language: String
-}, {
-    versionKey: false
-});
 
 const PilotModel = mongoose.model('pilots', pilotSchema);
-const LanguageModel = mongoose.model('knownLanguages', LanguageSchema);
 
 const insertPilot = (pilotInstance) => {
     return PilotModel.create({
@@ -70,18 +59,13 @@ const insertPilot = (pilotInstance) => {
         sen_level: pilotInstance.sen_level,
         veh_rest: pilotInstance.veh_rest,
         maxRange: pilotInstance.maxRange,
-        email: pilotInstance.email
+        email: pilotInstance.email,
+        knownLanguages : pilotInstance.knownLanguages,
+        flights : pilotInstance.flights
     });
 };
 
 
-async function insertLanguage(instance) {
-    await LanguageModel.create({
-        pilotID: instance.pilotID,
-        crewID: instance.crewID,
-        language: instance.language
-    });
-}
 
 
-module.exports = { PilotClass, LanguageClass, insertPilot, insertLanguage, PilotModel, LanguageModel };
+module.exports = { PilotClass, insertPilot, PilotModel};

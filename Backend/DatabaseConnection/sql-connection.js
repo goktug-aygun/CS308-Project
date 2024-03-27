@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const mongoose = require('mongoose');
 
 // MySQL Connection
 const MySQL_connection = mysql.createConnection({
@@ -19,17 +18,4 @@ MySQL_connection.connect((err) => {
 });
 
 
-
-// MongoDB connection
-const uri = "mongodb+srv://cs308:cs308Test@test-db.1sxjsvf.mongodb.net/?retryWrites=true&w=majority&appName=test-db";
-
-const Mongoose_Connection = mongoose.connect(uri)
-    .then(() => {
-        console.log('Connected to MongoDB Database');
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error);
-    });
-
-
-module.exports = {MySQL_connection, Mongoose_Connection, mongoose};
+module.exports = {MySQL_connection};
