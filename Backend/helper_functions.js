@@ -109,7 +109,7 @@ function generateLanguageData(nationality) {
 
     for (let j = 0; j < randomCount; j++) {
         do {
-            const randomLanguage = languages.at(getRandomInt(0, languages.length));
+            var randomLanguage = languages.at(getRandomInt(0, languages.length));
         }
         while (languagesSpoken.includes(randomLanguage));
         languagesSpoken.push(randomLanguage);
@@ -117,5 +117,7 @@ function generateLanguageData(nationality) {
 
     return languagesSpoken;
 }
+
+
 
 module.exports = { generateID, getRandomInt, getSeatNumber, generatePilotData, generateLanguageData};

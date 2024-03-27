@@ -57,8 +57,8 @@ const LanguageSchema = new mongoose.Schema({
     versionKey: false
 });
 
-const PilotModel = mongoose.model('Pilots', pilotSchema);
-const LanguageModel = mongoose.model('Languages', LanguageSchema);
+const PilotModel = mongoose.model('pilots', pilotSchema);
+const LanguageModel = mongoose.model('knownLanguages', LanguageSchema);
 
 const insertPilot = (pilotInstance) => {
     return PilotModel.create({

@@ -3,39 +3,37 @@
 CREATE DATABASE CS308_MAIN_SQL_DATABASE;
 USE CS308_MAIN_SQL_DATABASE;
 
+CREATE TABLE Personels(
+    personel_id     VARCHAR(7)  NOT NULL,
+    name            VARCHAR(20) NOT NULL,
+    age             INT         NOT NULL,
+    gender          VARCHAR(1)  NOT NULL,
+    nationality     VARCHAR(20) NOT NULL,
+    veh_rest    INT NOT NULL,
+    email           VARCHAR(100) NOT NULL,
+    PRIMARY KEY (personel_id)
+);
+
 CREATE TABLE Pilots(
-    pilot_id    VARCHAR(7) NOT NULL,
-    name        VARCHAR(20) NOT NULL,
-    age         INT NOT NULL,
-    gender      VARCHAR(1) NOT NULL, #M,F
-    nationality VARCHAR(20) NOT NULL,
-    sen_level   VARCHAR(1) NOT NULL,  #t,j,s
-    veh_rest    INT NOT NULL,  #1,2,3,4
-    max_range   INT NOT NULL,
-    email       VARCHAR(100) NOT NULL,
-    PRIMARY KEY (pilot_id)
+    personel_id     VARCHAR(7)  NOT NULL,
+    sen_level       VARCHAR(1)  NOT NULL,
+    max_range       INT         NOT NULL,
+    FOREIGN KEY (personel_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (personel_id)
 );
 
-CREATE TABLE KnownLanguages (
-    language VARCHAR(20) NOT NULL ,
-    crew_id VARCHAR(7),
-    pilot_id VARCHAR(7),
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE CabinCrew(
+    personel_id     VARCHAR(7)  NOT NULL,
+    att_type        VARCHAR(1)  NOT NULL,
+    FOREIGN KEY (personel_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (personel_id)
 );
 
-
-CREATE TABLE CrewMembers(
-    crew_id     VARCHAR(7) NOT NULL,
-    name        VARCHAR(20) NOT NULL,
-    age         INT NOT NULL,
-    gender      VARCHAR(1) NOT NULL,
-    nationality VARCHAR(20) NOT NULL,
-    #known languages will be given in table "CrewKnownLanguages"
-    att_type    VARCHAR(1) NOT NULL,  #s,j,c
-    veh_rest    INT NOT NULL,  #1,2,3,4
-    max_range   INT NOT NULL,
-    PRIMARY KEY (crew_id)
+CREATE TABLE KnownLanguages(
+    personel_id     VARCHAR(7)  NOT NULL,
+    language        VARCHAR(20)  NOT NULL,
+    FOREIGN KEY (personel_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (personel_id, language)
 );
 
 CREATE TABLE Locations(
@@ -102,8 +100,7 @@ CREATE TABLE Seats(
 
 CREATE TABLE FlightCrew(
     flight_id   VARCHAR(6) NOT NULL,
-    pilot_id    VARCHAR(7),
-    crew_id     VARCHAR(7),
-    FOREIGN KEY (pilot_id) REFERENCES Pilots(pilot_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (crew_id) REFERENCES CrewMembers(crew_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    personel_id    VARCHAR(7),
+    FOREIGN KEY (pilot_id) REFERENCES Personels(personel_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (flight_id, personel_id)
 );

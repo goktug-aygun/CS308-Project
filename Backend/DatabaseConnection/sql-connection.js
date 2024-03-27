@@ -15,6 +15,7 @@ MySQL_connection.connect((err) => {
     console.error('Error connecting to database:', err.stack);
     return;
   }
+  console.log("Connected to SQL Database");
 });
 
 
