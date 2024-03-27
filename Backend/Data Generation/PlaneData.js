@@ -35,24 +35,24 @@ async function main() {
     let CrewLimit, PassengerLimit, SeniorityRestriction;
 
     switch (PlaneType) {
-      case "Boeing 767": // 2  pilot  1 sen 4 jun 0 chef
-        CrewLimit = 7;
-        PassengerLimit = 50;
+      case "Boeing 767": // 4  pilot  1 sen 4 jun 0 chef
+        CrewLimit = 9;
+        PassengerLimit = 120;
         SeniorityRestriction = 1;
         break;
-      case "Boeing 777": // 2 pilot 2 sen 8 jun 1 chef
-        CrewLimit = 13;
-        PassengerLimit = 100;
+      case "Boeing 777": // 4 pilot 2 sen 8 jun 1 chef
+        CrewLimit = 15;
+        PassengerLimit = 180;
         SeniorityRestriction = 2;
         break;
       case "Airbus A380": // 4 pilot 3 sen 12 jun 2 chef
         CrewLimit = 21;
-        PassengerLimit = 150;
+        PassengerLimit = 240;
         SeniorityRestriction = 3;
         break;
       case "Airbus A350": // 4 pilot 4 sen 16 jun 2 chef
         CrewLimit = 26;
-        PassengerLimit = 200;
+        PassengerLimit = 300;
         SeniorityRestriction = 4;
         break;
     }
