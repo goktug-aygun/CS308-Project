@@ -116,8 +116,6 @@ function generateFlights() {
                                             console.error('Error closing database connection:', err.stack);
                                             return;
                                         }
-                                        // close the MongoDB connection
-                                        //mongoose.connection.close();
                                     });
                                 }
                             });
@@ -128,6 +126,5 @@ function generateFlights() {
             });
         });
     }
-    //connection.end();
 }
 generateFlights();

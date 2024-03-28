@@ -1,8 +1,7 @@
 const connection = require('../Database Connection/sql-connection');
 const {getRandomInt}= require('../helper_functions');
 const {assignToFlight}=require('../Models/Flight');
-//Need to also insert to mongodb database
-//flighttime-+duration (DONE??)
+
 function assignCrewAndPilotsToFlights() {
     let i=1;
     // Query to get all flights
@@ -179,7 +178,6 @@ function assignCrewAndPilotsToFlights() {
                 });
             });
         });
-        //connection.end();
     });
 }
 assignCrewAndPilotsToFlights();
